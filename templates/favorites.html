@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+    {%block head%}
+      {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/favorites.css') }}">
+        <title>Favorites</title>
+    {%endblock%}
+    {%block content%}
+      <main class="background">
+      <section class="heading">
+        <div class="user-favorites">
+          <img src="{{ url_for('static', filename='Images/Site Images and Icons/favorites.png') }}">
+          <p>Favorites</p>
+        </div>
+      </section>
+      <section class="information">
+        {% for item in products_in_cart %}
+          <div class="product">
+            <img src="{{product_image_path}}/{{item['product_info'].id}}/1.jpg">
+            <p class="product-name">{{item['product_info'].product_name}}</p>
+            <p class="product-cost">${{item['product_info'].cost}}.00</p>
+            <form action="{{ url_for('favorites', product_id=item['product_info'].id)}} }}" method="POST">
+              <button class="add-to-cart" name="add_to_cart">Add To Cart</button>
+            </form>
+            <form action="{{url_for('favorites', product_id=item['product_info'].id) }}" method="POST">
+              <button class="remove-button" name="remove">Remove</button>
+            </form>
+          </div>
+        {% endfor %}
+      </section>
+    </main>
+    {%endblock%}

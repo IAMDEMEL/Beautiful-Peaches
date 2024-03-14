@@ -1,0 +1,62 @@
+{%extends "base.html"%}
+    {%block head%}
+      {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/cart.css') }}">
+        <title>Cart</title>
+    {%endblock%}
+    {%block content%}
+      <main class="background">
+
+        <section class="heading">
+          <div class="order-history">
+            <img src="{{ url_for('static', filename='Images/Site Images and Icons/cart.png') }}">
+            <p>Cart</p>
+          </div>
+        </section>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="flashes">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <section class="cart">
+          <div class="information">
+            {% for item in products_in_cart %}
+              <div class="product">
+                <img src="{{product_image_path}}/{{item['product_info'].id}}/1.jpg">
+                <p class="product-name">{{item['product_info'].product_name}}</p>
+                  <div class="product-amount">
+                    <p>Amount:</p>
+                    <div class="controls">
+                      <p class="current-product-amount">{{item['amount']}}</p>
+                      <div class="amount-buttons">
+                         <form action="{{url_for('cart', product_id=item['product_info'].id)}}" method="POST">
+                            <button class="increase" name="increase">&#11165;</button>
+                         </form>
+                         <form action="{{url_for('cart', product_id=item['product_info'].id)}}" method="POST">
+                            <button class="decrease" name="decrease">&#11167;</button>
+                         </form>
+                      </div>
+                    </div>
+                  </div>
+                <p class="product-cost">${{item['product_info'].cost}}.00</p>
+                <form action="{{url_for('cart', product_id=item['product_info'].id) }}" method="POST">
+                  <button class="remove-button" name="remove">Remove</button>
+                </form>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="checkout">
+            <div class="total">
+              <p class="sub">Total</p>
+              <p>{{final_cost}}</p>
+            </div>
+            <form action="{{url_for('cart', product_id=0)}}" method="POST">
+              <button>Send Request</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    {%endblock%}

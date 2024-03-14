@@ -1,0 +1,101 @@
+header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgb(37, 37, 37);
+  color: rgb(211, 211, 211);
+  z-index: 101;
+}
+.top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.second-word{
+  color: #E79A67ff;
+}
+.logo-image{
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  margin-left: 10px;
+}
+.logo-image img{
+  width: 100%;
+}
+.top p{
+  font-family: 'Alex Brush', sans-serif;
+  color: #CD6B30ff;
+  font-size: 64px;
+  margin: 0px 15px;
+  text-align: center;
+}
+.user-menus{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 10px;
+  min-width: 150px;
+  max-width: 150px;
+}
+.user-menus div{
+  margin: 0px 10px;
+  width: 24px;
+}
+.user-menus div img{
+  width: 100%;
+  cursor: pointer;
+}
+
+.fresh-user-links button{
+  background-color: rgb(37, 37, 37);
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+.fresh-sign-up{
+  width: 72px;
+}
+.fresh-img{
+  width: 24px;
+  margin-left: 5px;
+}
+
+nav{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+}
+nav a{
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+}
+.search-button{
+  width: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.search-button img{
+  width: 100%;
+}
+a{
+    text-decoration: none;
+    color: white;
+}

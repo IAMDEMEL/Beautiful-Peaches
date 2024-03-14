@@ -1,0 +1,125 @@
+.background{
+  background-color: rgb(37, 37, 37);
+  color: white;
+  margin:  220px 50px 50px 50px;
+  padding: 30px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+}
+.background img{
+  width: 30px;
+}
+.user-profile{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 5px;
+}
+.user-profile img{
+  margin-right: 8px;
+}
+
+.information{
+  padding-left: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgb(218, 218, 218);
+}
+
+.first-name, .month, .checkable-address{
+  margin-right: 10px;
+}
+.day{
+  margin-left: 10px;
+}
+.dob{
+  padding-left: 20px;
+}
+
+.checkable-address{
+  color: white;
+  font-size: 10px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid;
+  border-radius: 2px;
+  background-color: rgb(37, 37, 37);
+  cursor: pointer;
+}
+
+.checkable-address:hover{
+  background-color: rgb(47, 47, 47);
+}
+.users-name, .birth-date{
+  margin-left: 15px;
+  display: flex;
+  flex-direction: row;
+  font-weight: 500;
+}
+.addresses, .dob{
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+.address{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  }
+
+.address-heading{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.new-address-from{
+  margin-left: 235px;
+}
+.address-button, .delete-button{
+  color: white;
+  border-radius: 15px;
+  font-size: 20px;
+  border: 0px none rgb(0, 0, 0);
+  background-color: rgb(57, 57, 57);
+  cursor:pointer;
+}
+.address-button:hover, .delete-button:hover{
+  background-color: rgb(77, 77, 77);
+}
+.delete-button{
+  margin-left: 10px;
+}
+
+input, .save{
+  font-size: 20px;
+  border-radius: 8px;
+  border: 0px none;
+}
+input{
+  outline: none;
+  padding-left: 8px;
+}
+
+.save{
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 8px;
+  background-color: #CD6B30ff;
+}
+
+.logout-form button{
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 20px;
+  margin-left: 25px;
+  cursor: pointer;
+}

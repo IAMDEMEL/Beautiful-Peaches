@@ -1,0 +1,67 @@
+{%extends "base.html"%}
+    {%block head%}
+    {{ super() }}
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/products.css') }}">
+      <title>Yoni Products</title>
+    {%endblock%}
+    {%block content%}
+      <main class="products">
+      <section class="browsing">
+        <div class="item">
+          <p class="search-for">Yoni</p>
+        </div>
+
+        <div class="sort">
+          <p>Sort:</p>
+          <div class="sort-dropdown">
+              <form action="{{ url_for('homepage') }}" method="POST">
+                <button class="sort-option p1" name="by-id">Featured</button>
+              </form>
+              <form action="{{ url_for('homepage') }}" method="POST">
+                <button class="sort-option p2" name="low-to-high">Low to High</button>
+              </form>
+              <form action="{{ url_for('homepage') }}" method="POST">
+                <button class="sort-option p3" name="high-to-low">High to Low</button>
+              </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="product-grid">
+        {%for item in products:%}
+          {%if item.type == 'yoni'%}
+            <div class="product-card">
+
+                <div class="product-background">
+                  <a href="{{ url_for('product', product_id=item.id) }}">
+                    <div class="thumbnail">
+                    <img src="{{product_image_path}}/{{item.id}}/1.jpg">
+                  </div>
+                  </a>
+                  <div class="details">
+                    <a href="{{ url_for('product', product_id=item.id) }}">
+                        <p class="name">{{item.product_name}}</p>
+                    </a>
+                    <p>${{item.cost}}.00</p>
+                  </div>
+                  {% if current_user.is_authenticated %}
+                      {% if current_user.id == 1 %}
+                          <div class="master-controls">
+                            <form action="{{url_for('modifier', product_id=item.id)}}" method="POST">
+                              <button class="edit-button">Edit</button>
+                              <input type="hidden" name="{{item.id}}">
+                            </form>
+                            <form action="{{url_for('homepage')}}" method="POST">
+                              <button class="delete-button" name="delete-button">Delete</button>
+                              <input type="hidden" name="{{item.id}}">
+                            </form>
+                          </div>
+                      {% endif %}
+                  {% endif %}
+                </div>
+            </div>
+          {% endif%}
+        {%endfor%}
+      </section>
+    </main>
+    {%endblock%}

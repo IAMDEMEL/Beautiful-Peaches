@@ -1,0 +1,5 @@
+.env
+.gitignore
+.idea
+/shelf/
+/workspace.xml

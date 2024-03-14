@@ -1,0 +1,117 @@
+{%extends "base.html"%}
+    {%block head%}
+      {{ super() }}
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/modifier.css') }}">
+      <title>Product List Modifier</title>
+    {%endblock%}
+    {%block content%}
+      <main class="container">
+        <section class="heading">
+      <link rel="stylesheet" href="{{ url_for('static', filename='Images/Site Images and Icons/edit.png') }}">
+          <img src="/static/">
+          <p>Product Modifier</p>
+        </section>
+        <section class="form">
+        {% if new_product %}
+          <form action="{{url_for('create_new_product')}}" enctype="multipart/form-data" method="POST">
+            <div class="product-name">
+              <p>Name:</p>
+              <input class="text-box" type="text" name="name">
+            </div>
+            <div class="product-type">
+              <p>Type:</p>
+              <select name="type">
+                  <option value="yoni">Yoni</option>
+                  <option value="skincare">Skincare</option>
+              </select>
+            </div>
+            <div class="product-price">
+              <p>Price:</p>
+              {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                      {% for message in messages %}
+                          <p class="flashes">{{ message }}</p>
+                      {% endfor %}
+                  {% endif %}
+              {% endwith %}
+              <input class="text-box" type="text" name="price">
+            </div>
+            <div class="product-description">
+              <p>Description:</p>
+              <input class="text-box" type="text" name="description">
+            </div>
+            <div class="image">
+              <p>Image 1:</p>
+              <input type="file" name="image1">
+            </div>
+            <div class="image">
+              <p>Image 2:</p>
+              <input type="file" name="image2">
+            </div>
+            <div class="image">
+              <p>Image 3:</p>
+              <input type="file" name="image3">
+            </div>
+            <div class="image">
+              <p>Image 4:</p>
+              <input type="file" name="image4">
+            </div>
+            <input class="button" type="submit"  value="Submit">
+          </form>
+        {% else %}
+          <form action="{{url_for('modifier', product_id=current_product.id)}}" enctype="multipart/form-data" method="POST">
+            <div class="product-name">
+              <p>Name:</p>
+              <input class="text-box" type="text" name="name" value="{{current_product.product_name}}">
+            </div>
+            <div class="product-type">
+              <p>Type:</p>
+              <select name="type">
+                {% if current_product.type == 'yoni' %}
+                  <option value="yoni" selected="selected">Yoni</option>
+                  <option value="skincare">Skincare</option>
+                {% else %}
+                  <option value="yoni">Yoni</option>
+                  <option value="skincare" selected="selected">Skincare</option>
+                {% endif %}
+              </select>
+            </div>
+            <div class="product-price">
+              <p>Price: </p>
+              {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                      {% for message in messages %}
+                          <p class="flashes">{{ message }}</p>
+                      {% endfor %}
+                  {% endif %}
+              {% endwith %}
+              <input class="text-box" type="text" name="price" value="{{current_product.cost}}">
+            </div>
+            <div class="product-description">
+              <p>Description:</p>
+              <input class="text-box" type="text" name="description" value="{{current_product.description}}">
+            </div>
+            <div class="text-prompt">Please Reselect Images:</div>
+            <div class="place-holder"></div>
+            <div class="image">
+              <p>Image 1:</p>
+              <input type="file" name="image1">
+            </div>
+            <div class="image">
+              <p>Image 2:</p>
+              <input type="file" name="image2">
+            </div>
+            <div class="image">
+              <p>Image 3:</p>
+              <input type="file" name="image3">
+            </div>
+            <div class="image">
+              <p>Image 4:</p>
+              <input type="file" name="image4">
+            </div>
+            <input class="button" type="submit"  value="Submit">
+          </form>
+        {% endif %}
+        </section>
+      </main>
+    {%endblock%}

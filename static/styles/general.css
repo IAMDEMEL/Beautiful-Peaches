@@ -1,0 +1,37 @@
+
+body{
+  background-image: url("/static/Images/Site Images and Icons/site peaches.png");
+  background-color: #CD6B30ff;
+  font-family: 'Alex Brush', sans-serif;
+  margin: 0px;}
+hr{
+  color:rgba(211, 211, 211, .1);
+}
+
+.flashes{
+ color: red;
+}
+
+@media (min-width: 1200px) {
+  .product-grid{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 964px) and (max-width: 1199px){
+  .product-grid{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 670px) and (max-width: 963px){
+  .product-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 665px){
+  .product-grid{
+    grid-template-columns: 1fr;
+  }
+}

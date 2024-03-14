@@ -1,0 +1,129 @@
+{%extends "base.html"%}
+    {%block head%}
+      {{ super() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css') }}">
+        {% if current_user.is_authenticated %}
+          <title>{{current_user.name}}'s Profile</title>
+        {% endif %}
+    {%endblock%}
+    {%block content%}
+      <main class="background">
+        <section class="heading">
+          <div class="user-profile">
+            <link rel="stylesheet" href="{{ url_for('static', filename='Images/Site Images and Icons/profile.png') }}">
+            <img src="/static/">
+            <p>Profile</p>
+          </div>
+        </section>
+        <section class="information">
+          {% if current_user.is_authenticated %}
+            <div class="name">
+
+              <p>Name:</p>
+              <div class="users-name">
+                <p class="first-name">First: {{current_user.name.split(' ')[0]}}</p>
+                <p class="last-name">Last: {{current_user.name.split(' ')[1]}}</p>
+              </div>
+            </div>
+            <div class="dob">
+              <p>Birth Date:</p>
+              <div class="birth-date">
+                <p class="month">Month: {{current_user.date_of_birth.split('-')[0]}}</p>
+                <p>/</p>
+                <p class="day">Day: {{current_user.date_of_birth.split('-')[1]}}</p>
+              </div>
+            </div>
+            {% if current_user.address == ' ' %}
+              <div class="delivery-address">
+                <p>Addresses:</p>
+                <div class="addresses">
+                  <div class="address-1">
+                    <input class="checkable-address" type="checkbox" checked>
+                    <p class="deliver-to-address">Address: --</p>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="delivery-address">
+                <div class="address-heading">
+                  <p>Addresses:</p>
+                  <form class="new-address-from" action="{{url_for('profile')}}" method="POST">
+                    <button class="address-button" name="address-button">&#43;</button>
+                  </form>
+                </div>
+                <div class="addresses">
+                  {% if new_address == False %}
+                    {% for address in addresses%}
+                      {% if address.checked == True %}
+                        <div class="address">
+                          <button class="checkable-address">&#10003;</button>
+                          <p class="deliver-to-address">{{address.address}}</p>
+                          <form class="delete-address-form" action="{{url_for('profile')}}" method="POST">
+                            <button class="delete-button" name="delete-button">&#8722;</button>
+                            <input type="hidden" name="{{address.id}}">
+                          </form>
+                        </div>
+                      {% else %}
+                        <div class="address">
+                          <form class="select-address-form" action="{{url_for('profile')}}" method="POST">
+                            <button class="checkable-address" name="checkable-address"></button>
+                            <input type="hidden" name="{{address.id}}">
+                          </form>
+                          <p class="deliver-to-address">{{address.address}}</p>
+                          <form class="delete-address-form" action="{{url_for('profile')}}" method="POST">
+                            <button class="delete-button" name="delete-button">&#8722;</button>
+                            <input type="hidden" name="{{address.id}}">
+                          </form>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                      <form class="adding-address-form" action="{{url_for('profile')}}" method="POST">
+                        <p>Street Address:</p>
+                        <input class="street-address" name="street-address" type="text">
+                        <p>City:</p>
+                        <input class="city" name="city" type="text">
+                        <p>Parish:</p>
+                        <input class="parish" name="parish" type="text">
+                        <p></p>
+                        <button class="save" name="save">Save</button>
+                      </form>
+                  {% endif %}
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="name">
+              <p>Name:</p>
+              <div class="users-name">
+                <p class="first-name">First: ------------</p>
+                <p class="last-name">Last: ------------</p>
+              </div>
+            </div>
+            <div class="dob">
+              <p>Birth Date:</p>
+              <div class="birth-date">
+                <p class="month">Month: ---------</p>
+                <p>/</p>
+                <p class="day">Day: ----</p>
+              </div>
+            </div>
+            <div class="delivery-address">
+              <p>Addresses:</p>
+              <div class="addresses">
+                <div class="address-1">
+                  <input class="checkable-address" type="checkbox" checked>
+                  <p class="deliver-to-address">--------------------------</p>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </section>
+        {% if current_user.is_authenticated %}
+        <div class="logout">
+              <form class="logout-form" action="{{url_for('profile')}}" method="POST">
+                <button name="logout">Logout</button>
+              </form>
+            </div>
+        {% endif %}
+      </main>
+    {%endblock%}

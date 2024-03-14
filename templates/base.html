@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {%block head%}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/general.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/footer.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        {%endblock%}
+    </head>
+    <body>
+        {%block header%}
+            <header>
+              <section class="top">
+                <div class="logo-image"><img src="{{ url_for('static', filename='Images/Site Images and Icons/logo.png') }}"></div>
+                <p>Beautiful <span class="second-word">Peaches</span></p>
+
+                <div class="user-menus">
+                    {% if current_user.is_authenticated %}
+                      {% if current_user.id == 1 %}
+                        <div class="user-links">
+                          <a href="{{url_for('create_new_product')}}">
+                            <img src="{{ url_for('static', filename='Images/Site Images and Icons/edit.png') }}">
+                          </a>
+                        </div>
+                      {% endif %}
+                      <div class="user-links">
+                          <a href="{{url_for('favorites')}}">
+                            <img src="{{ url_for('static', filename='Images/Site Images and Icons/favorites.png') }}">
+                          </a>
+                      </div>
+                      <div class="user-links">
+                          <a href="{{url_for('profile')}}">
+                            <img src="{{ url_for('static', filename='Images/Site Images and Icons/profile.png') }}">
+                          </a>
+                      </div>
+                      <div class="user-links">
+                          <a href="{{url_for('cart', product_id=0)}}">
+                            <img src="{{ url_for('static', filename='Images/Site Images and Icons/cart.png') }}">
+                          </a>
+                      </div>
+                    {% else%}
+                      <a class="fresh-user-links" href="{{url_for('sign_up')}}">
+                          <button class="fresh-sign-up">Sign-Up</button>
+                      </a>
+                      <a class="fresh-user-links" href="{{url_for('login')}}">
+                          <button class="fresh-login">Login</button>
+                      </a>
+                    {% endif %}
+                </div>
+              </section>
+
+              <section class="bottom">
+                <nav>
+                  <a href="{{url_for('homepage')}}">New</a>
+                  <a href="{{url_for('homepage')}}">Yoni</a>
+                  <a href="{{url_for('skincare')}}">Skincare</a>
+                  <div class="search-button">
+                    <img src="{{ url_for('static', filename='Images/Site Images and Icons/search.png') }}">
+                  </div>
+                </nav>
+              </section>
+            </header>
+        {%endblock%}
+
+        {%block content%}
+
+        {%endblock%}
+
+        <footer>
+          <p>
+            Beautiful Peaches Copyright @ 2023.
+          </p>
+        </footer>
+    </body>
+</html>

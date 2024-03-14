@@ -1,0 +1,50 @@
+{%extends "base.html"%}
+    {%block head%}
+      {{ super() }}
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/product_page.css') }}">
+      <title>{{product_info.product_name}}</title>
+    {%endblock%}
+    {%block content%}
+      <main class="product">
+        <section class="product-images">
+          <div class="secondary-images">
+            <img src="{{product_image_path}}/1.jpg">
+            <img src="{{product_image_path}}/2.jpg">
+            <img src="{{product_image_path}}/3.jpg">
+          </div>
+          <div class="main-image">
+            <img src="{{product_image_path}}/1.jpg">
+          </div>
+        </section>
+
+        <section class="product-info">
+<!--          Enter Review information below to set it up-->
+<!--          <div class="reviews">-->
+<!--            <div class="review-bar">-->
+<!--              <img src="/static/Images/Site Images and Icons/star_icon.png">-->
+<!--              <img src="/static/Images/Site Images and Icons/star_icon.png">-->
+<!--              <img src="/static/Images/Site Images and Icons/star_icon.png">-->
+<!--              <img src="/static/Images/Site Images and Icons/star_icon.png">-->
+<!--              <img src="/static/Images/Site Images and Icons/star_icon.png">-->
+<!--            </div>-->
+<!--            <p class="amount-of-reviews">{{product_info.reviews}} reviews</p>-->
+<!--          </div>-->
+          <p class="product-name">{{product_info.product_name}}</p>
+          <form class="favorite-form" action="{{ url_for('product', product_id=product_info.id) }}" method="POST">
+            <p class="price"> ${{product_info.cost}}.00</p>
+            <button class="add-to-favorites" name="add-to-favorites">&#10084;</button>
+          </form>
+          <form action="{{ url_for('product', product_id=product_info.id) }}" method="POST">
+            <button class="add-to-cart" name="add_to_cart">Add To Cart</button>
+          </form>
+          <form action="{{ url_for('product', product_id=product_info.id) }}" method="POST">
+            <button class="buy-now" name="buy_now">Buy Now</button>
+          </form>
+          <div class="product-description">
+            <p class="heading">Product Description</p>
+            <p class="description">{{product_info.description}}</p>
+          </div>
+
+        </section>
+      </main>
+    {%endblock%}
