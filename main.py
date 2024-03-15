@@ -1,6 +1,7 @@
 from flask_login import LoginManager, UserMixin, login_user, logout_user, user_logged_in, login_required, current_user
 from flask import Flask, render_template, request, redirect, url_for, flash, abort
 from werkzeug import security as pswd_controller
+from dotenv import find_dotenv, load_dotenv
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, asc
@@ -11,13 +12,17 @@ import smtplib
 import shutil
 import os
 
-MY_EMAIL = "demelgayle4@gmail.com"
-APP_PASSWORD = "lrwakfivpymjwbas"
-RECEIVERS_EMAIL = "gayledemel@yahoo.com"
-GMAIL_SEVER = "smtp.gmail.com"
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+MY_EMAIL = os.getenv('MY_EMAIL')
+APP_PASSWORD = os.getenv('APP_PASSWORD')
+RECEIVERS_EMAIL = os.getenv('RECEIVERS_EMAIL')
+GMAIL_SEVER = os.getenv('GMAIL_SEVER')
+TYPE_OF_HASH = os.getenv('TYPE_OF_HASH')
+SALT = os.getenv('SALT')
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-TYPE_OF_HASH = 'pbkdf2:sha256'
-SALT = 5
 ZERO = 0
 
 new_product = True
@@ -25,22 +30,13 @@ adding_new_address = False
 
 db = SQLAlchemy()
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///product_info.db"
-app.secret_key = b'_5#y2L"F4Q8z$n^xec]/'
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.secret_key = os.getenv('&*(T&ihu!(d(h^sa%&^2')
 
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return db.get_or_404(Users, user_id)
-
-
-with app.app_context():
-    db.create_all()
 
 
 class Users(db.Model, UserMixin):
@@ -94,6 +90,15 @@ class Address(db.Model):
     client_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
     address = db.Column(db.Integer, nullable=False)
     checked = db.Column(db.Boolean, nullable=False)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(Users, user_id)
+
+
+with app.app_context():
+    db.create_all()
 
 
 def admin_only(func):
