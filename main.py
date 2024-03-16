@@ -31,7 +31,7 @@ adding_new_address = False
 db = SQLAlchemy()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('SQLALCHEMY_DATABASE_URI')
-app.secret_key = os.getenv('&*(T&ihu!(d(h^sa%&^2')
+app.secret_key = os.getenv('SECRET_KEY')
 
 db.init_app(app)
 login_manager = LoginManager()
@@ -117,8 +117,7 @@ def homepage():
     product_image_path = "/static/Images/Product Images"
     if request.method == 'POST':
         if 'delete-button' in request.form:
-            product_image_path = (f"C:/Users/Demel/Documents/Python_Projects/"
-                                  f"Rachelle_Website/Beautiful Peaches/static/Images/Product Images")
+            product_image_path = (f"/static/Images/Product Images")
             refactor_database(product_image_path)
             return redirect(url_for('homepage'))
         elif 'by-id' in request.form:
@@ -143,7 +142,7 @@ def sign_up():
             new_user = Users(name=request.form['name'], email=request.form['email'],
                              date_of_birth=f"{calendar.month_name[int(request.form['month'])]}-{request.form['day']}-{request.form['year']}",
                              password=pswd_controller.generate_password_hash(
-                                 password=request.form['password'], method=TYPE_OF_HASH, salt_length=SALT))
+                                 password=request.form['password'], method=TYPE_OF_HASH, salt_length=int(SALT)))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
@@ -187,8 +186,7 @@ def login():
 @app.route('/skincare', methods=['GET', 'POST'])
 def skincare():
     products = db.session.execute(db.select(ProductInfo).order_by(ProductInfo.id)).scalars()
-    product_image_path = (f"C:/Users/Demel/Documents/Python_Projects/"
-                          f"Rachelle_Website/Beautiful Peaches/static/Images/Product Images")
+    product_image_path = (f"/static/Images/Product Images")
     if request.method == 'POST':
         if 'delete-button' in request.form:
             refactor_database(product_image_path)
@@ -400,8 +398,7 @@ def generate_email(items, final_cost):
 def modifier(product_id):
     global new_product
     new_product = False
-    product_image_path = (f"C:/Users/Demel/Documents/Python_Projects/"
-                          f"Rachelle_Website/Beautiful Peaches/static/Images/Product Images")
+    product_image_path = (f"/static/Images/Product Images")
     current_product = db.get_or_404(ProductInfo, product_id)
 
     if request.method == 'POST':
