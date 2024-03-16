@@ -21,7 +21,6 @@ RECEIVERS_EMAIL = os.getenv('RECEIVERS_EMAIL')
 GMAIL_SEVER = os.getenv('GMAIL_SEVER')
 TYPE_OF_HASH = os.getenv('TYPE_OF_HASH')
 SALT = os.getenv('SALT')
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 ZERO = 0
 
@@ -114,10 +113,10 @@ def admin_only(func):
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     products = db.session.execute(db.select(ProductInfo).order_by(ProductInfo.id)).scalars()
-    product_image_path = "/static/Images/Product Images"
+    product_image_path = f"static/Images/Product Images"
     if request.method == 'POST':
         if 'delete-button' in request.form:
-            product_image_path = (f"/static/Images/Product Images")
+            product_image_path = f"{os.getcwd()}/static/Images/Product Images"
             refactor_database(product_image_path)
             return redirect(url_for('homepage'))
         elif 'by-id' in request.form:
@@ -186,9 +185,10 @@ def login():
 @app.route('/skincare', methods=['GET', 'POST'])
 def skincare():
     products = db.session.execute(db.select(ProductInfo).order_by(ProductInfo.id)).scalars()
-    product_image_path = (f"/static/Images/Product Images")
+    product_image_path = f"static/Images/Product Images"
     if request.method == 'POST':
         if 'delete-button' in request.form:
+            product_image_path = f"{os.getcwd()}/static/Images/Product Images"
             refactor_database(product_image_path)
         return redirect(url_for('skincare'))
     elif request.method == "GET":
@@ -448,13 +448,14 @@ def create_new_product():
 
 
 def store_product_image(current_product, images):
-    os.mkdir(f'static/Images/Product Images/{current_product.id}')
+    path = 'static/Images/Product Images'
+    os.mkdir(f'{os.getcwd()}/{path}/{current_product.id}')
     index = 1
     for image in images:
         filename = secure_filename(image.filename)
         image.save(os.path.join(f'static/Images/Product Images/{current_product.id}', filename))
-        os.rename(src=f'static/Images/Product Images/{current_product.id}/{filename}',
-                  dst=f'static/Images/Product Images/{current_product.id}/{index}.jpg')
+        os.rename(src=f'{os.getcwd()}/{path}/{current_product.id}/{filename}',
+                  dst=f'{os.getcwd()}/{path}/{current_product.id}/{index}.jpg')
         index += 1
 
 
