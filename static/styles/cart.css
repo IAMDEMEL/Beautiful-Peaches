@@ -172,3 +172,9 @@
   cursor: pointer;
   background-color: #CD6B30ff;
 }
+
+@media (min-width: 517px) and (max-width: 1170px){
+  .background{
+    min-width:994px;
+  }
+}

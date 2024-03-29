@@ -123,3 +123,9 @@ input{
   margin-left: 25px;
   cursor: pointer;
 }
+
+@media (min-width: 517px) and (max-width: 940px){
+  .background{
+    min-width:762px;
+  }
+}

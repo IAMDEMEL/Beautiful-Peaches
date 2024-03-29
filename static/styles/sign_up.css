@@ -1,5 +1,6 @@
 .container{
-  margin:  220px 450px 50px 450px;
+  margin:  220px auto 50px auto;
+  width: 383px;
   padding: 30px;
   border-radius: 8px;
   display: flex;

@@ -9,6 +9,7 @@ header{
   right: 0px;
   background-color: rgb(37, 37, 37);
   color: rgb(211, 211, 211);
+  max-width: 100%;
   z-index: 101;
 }
 .top{

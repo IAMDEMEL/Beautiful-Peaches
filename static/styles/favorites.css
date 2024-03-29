@@ -97,3 +97,8 @@
   text-decoration: underline;
 }
 
+@media (min-width: 517px) and (max-width: 820px){
+  .background{
+    min-width:675px;
+  }
+}
